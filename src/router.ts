@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { body } from "express-validator";
-import { createAccount } from "./handlers";
+import { createAccount, login } from "./handlers";
+import { handleInputErros } from "./middleware/validation";
 
 const validateUser = [
   body("name").notEmpty().withMessage("Nombre es requerido"),
@@ -11,9 +12,16 @@ const validateUser = [
     .withMessage("Contraseña es muy corta, mínimo 8 caracteres"),
 ];
 
+const validateLogin = [
+  body("email").isEmail().withMessage("Email no es válido"),
+  body("password").notEmpty().withMessage("La contraseña es requerida"),
+];
+
 const router = Router();
 
 //?  Authentication and Register
-router.post("/auth/register", validateUser, createAccount);
+router.post("/auth/register", validateUser, handleInputErros, createAccount);
+
+router.post("/auth/login", validateLogin, handleInputErros, login);
 
 export default router;
