@@ -11,7 +11,7 @@
         "esModuleInterop": true,
         "declaration": true,
     },
-    "include": ["src/**/*.ts", "src/index.ts"],
+    "include": ["src/**/*.ts", "src/index.ts", "src/config/example.js"],
     "exclude": ["node_modules", "**/*.spec.ts"]
     
 }

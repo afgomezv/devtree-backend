@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import { validationResult } from "express-validator";
 import User from "../models/User";
 import { checkPassword, hashPassword } from "../utils/auth";
 import { generateUniqueSlug } from "../utils/slug";
