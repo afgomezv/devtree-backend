@@ -1,7 +1,8 @@
 import { Router } from "express";
 import { body } from "express-validator";
-import { createAccount, login } from "./handlers";
+import { createAccount, getUser, login, updateProfile } from "./handlers";
 import { handleInputErros } from "./middleware/validation";
+import { authenticate } from "./middleware/auth";
 
 const validateUser = [
   body("name").notEmpty().withMessage("Nombre es requerido"),
@@ -17,11 +18,25 @@ const validateLogin = [
   body("password").notEmpty().withMessage("La contraseña es requerida"),
 ];
 
+const validateProfile = [
+  body("handle").notEmpty().withMessage("Handle es requirido"),
+  body("description").notEmpty().withMessage("description es requirido"),
+];
+
 const router = Router();
 
 //?  Authentication and Register
 router.post("/auth/register", validateUser, handleInputErros, createAccount);
 
 router.post("/auth/login", validateLogin, handleInputErros, login);
+
+router.get("/user", authenticate, getUser);
+router.patch(
+  "/user",
+  validateProfile,
+  handleInputErros,
+  authenticate,
+  updateProfile
+);
 
 export default router;

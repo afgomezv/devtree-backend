@@ -1,5 +1,4 @@
 import { CorsOptions } from "cors";
-console.log(process.argv[2]);
 
 export const corsConfig: CorsOptions = {
   origin: function (origin, callback) {
