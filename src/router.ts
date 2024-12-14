@@ -5,6 +5,7 @@ import {
   getUser,
   getUserByHandle,
   login,
+  searchByHandle,
   updateProfile,
   uploadImage,
 } from "./handlers";
@@ -30,6 +31,10 @@ const validateProfile = [
   body("description").notEmpty().withMessage("description es requirido"),
 ];
 
+const validateSearch = [
+  body("handle").notEmpty().withMessage("Handle es requirido"),
+];
+
 const router = Router();
 
 //?  Authentication and Register
@@ -49,5 +54,7 @@ router.patch(
 router.post("/user/image", authenticate, uploadImage);
 
 router.get("/:handle", getUserByHandle);
+
+router.post("/search", validateSearch, searchByHandle);
 
 export default router;
